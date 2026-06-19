@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 26.2.3.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="00:00:00"/>
+	<style type="text/css">
+		@page { size: 8.27in 11.69in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		pre { font-size: 10pt; font-family: "Liberation Mono", monospace; background: transparent }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><pre>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; data-theme=&quot;dark&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;/&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no&quot;/&gt;
+&lt;title&gt;Constantino · Electric&lt;/title&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;/&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin/&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;/&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+/* ══════════════════════════════════════════════════
+   THEME TOKENS
+══════════════════════════════════════════════════ */
+[data-theme=&quot;dark&quot;] {
+  --bg:#000000; --surface:rgba(22,22,30,0.88); --surface2:rgba(30,30,42,0.7);
+  --border:rgba(255,255,255,0.08); --border-s:rgba(255,255,255,0.14);
+  --t1:rgba(255,255,255,0.95); --t2:rgba(255,255,255,0.55); --t3:rgba(255,255,255,0.28); --t4:rgba(255,255,255,0.10);
+  --input-bg:rgba(255,255,255,0.055); --input-bdr:rgba(255,255,255,0.09);
+  --ghost-bg:rgba(255,255,255,0.055); --ghost-bdr:rgba(255,255,255,0.09); --ghost-c:rgba(255,255,255,0.55);
+  --pull:rgba(255,255,255,0.15); --modal-bg:rgba(18,18,26,0.97);
+  --grid-line:rgba(255,255,255,0.018); --stats-bg:rgba(255,255,255,0.03);
+  --hist-bg:rgba(255,255,255,0.025); --hist-bdr:rgba(255,255,255,0.06);
+  --rate-tag-bg:rgba(10,132,255,0.12); --rate-tag-c:#40A9FF;
+  --sep:rgba(255,255,255,0.07); --tab-active:var(--surface);
+  --blue-display:#40A9FF;
+}
+[data-theme=&quot;light&quot;] {
+  --bg:#F2F2F7; --surface:rgba(255,255,255,0.92); --surface2:rgba(242,242,247,0.9);
+  --border:rgba(0,0,0,0.08); --border-s:rgba(0,0,0,0.14);
+  --t1:rgba(0,0,0,0.90); --t2:rgba(0,0,0,0.50); --t3:rgba(0,0,0,0.30); --t4:rgba(0,0,0,0.08);
+  --input-bg:rgba(0,0,0,0.04); --input-bdr:rgba(0,0,0,0.10);
+  --ghost-bg:rgba(0,0,0,0.04); --ghost-bdr:rgba(0,0,0,0.08); --ghost-c:rgba(0,0,0,0.55);
+  --pull:rgba(0,0,0,0.15); --modal-bg:rgba(255,255,255,0.98);
+  --grid-line:rgba(0,0,0,0.025); --stats-bg:rgba(0,0,0,0.03);
+  --hist-bg:rgba(0,0,0,0.025); --hist-bdr:rgba(0,0,0,0.07);
+  --rate-tag-bg:rgba(10,132,255,0.1); --rate-tag-c:#0066CC;
+  --sep:rgba(0,0,0,0.07); --tab-active:rgba(255,255,255,0.85);
+  --blue-display:#0066CC;
+}
+
+/* ══════════════════════════════════════════════════
+   BASE
+══════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,&quot;SF Pro Display&quot;,&quot;SF Pro Text&quot;,&quot;Inter&quot;,sans-serif;
+  background:var(--bg);color:var(--t1);min-height:100vh;
+  display:flex;justify-content:center;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background 0.4s ease,color 0.3s ease;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:1;
+  background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+  background-size:48px 48px;pointer-events:none;
+}
+#aurora{position:fixed;inset:0;z-index:0;pointer-events:none;transition:opacity 0.6s ease}
+[data-theme=&quot;light&quot;] #aurora{opacity:0}
+[data-theme=&quot;dark&quot;]  #aurora{opacity:1}
+.ab{position:absolute;border-radius:50%;filter:blur(100px);animation:ab 22s infinite}
+.ab:nth-child(1){width:700px;height:700px;background:radial-gradient(circle,rgba(10,132,255,.18) 0%,transparent 70%);top:-200px;left:-200px}
+.ab:nth-child(2){width:500px;height:500px;background:radial-gradient(circle,rgba(50,210,255,.1) 0%,transparent 70%);top:20%;right:-100px;animation-delay:-7s;animation-duration:18s}
+.ab:nth-child(3){width:600px;height:600px;background:radial-gradient(circle,rgba(94,92,230,.1) 0%,transparent 70%);bottom:-150px;left:30%;animation-delay:-12s;animation-duration:25s}
+@keyframes ab{0%{opacity:0;transform:translate(0,0) scale(1)}15%{opacity:1}50%{transform:translate(60px,40px) scale(1.15)}85%{opacity:1}100%{opacity:0;transform:translate(0,0) scale(1)}}
+#light-ambient{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 20% 0%,rgba(10,132,255,.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(50,210,255,.04) 0%,transparent 50%);opacity:0;transition:opacity 0.6s ease}
+[data-theme=&quot;light&quot;] #light-ambient{opacity:1}
+
+/* ══════════════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════════════ */
+#app{position:relative;z-index:10;width:100%;max-width:560px;padding:48px 20px 90px;display:flex;flex-direction:column;align-items:center}
+.screen{display:none;width:100%}
+.screen.active{display:block;animation:si .55s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes si{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+
+/* ══════════════════════════════════════════════════
+   TOPBAR
+══════════════════════════════════════════════════ */
+#topbar{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:flex-end;padding:14px 20px;pointer-events:none}
+#theme-btn{
+  pointer-events:auto;width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--border-s);background:var(--surface);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,0.15);transition:all .3s ease;color:var(--t2);
+  position:relative;overflow:hidden;
+}
+#theme-btn:hover{color:var(--t1);transform:scale(1.06)}
+.ti{position:absolute;transition:opacity .3s,transform .3s}
+[data-theme=&quot;dark&quot;]  .ti-dark {opacity:1;transform:scale(1) rotate(0deg)}
+[data-theme=&quot;dark&quot;]  .ti-light{opacity:0;transform:scale(.5) rotate(90deg)}
+[data-theme=&quot;light&quot;] .ti-dark {opacity:0;transform:scale(.5) rotate(-90deg)}
+[data-theme=&quot;light&quot;] .ti-light{opacity:1;transform:scale(1) rotate(0deg)}
+
+/* ══════════════════════════════════════════════════
+   BRAND
+══════════════════════════════════════════════════ */
+.brand{text-align:center;margin-bottom:36px}
+.brand-icon{
+  width:64px;height:64px;border-radius:18px;border:1px solid var(--border-s);
+  background:var(--surface);backdrop-filter:blur(20px);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 14px;position:relative;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,.04),0 16px 40px rgba(0,0,0,.25),0 0 50px rgba(10,132,255,.07);
+  transition:background .4s,border-color .4s;
+}
+[data-theme=&quot;light&quot;] .brand-icon{box-shadow:0 0 0 1px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.08),0 0 30px rgba(10,132,255,.05)}
+.brand-icon::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,132,255,.15) 0%,transparent 60%)}
+.brand-name{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t3)}
+
+/* ══════════════════════════════════════════════════
+   CARD
+══════════════════════════════════════════════════ */
+.card{
+  background:var(--surface);backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid var(--border);border-radius:24px;
+  padding:26px 22px;margin-bottom:12px;
+  position:relative;overflow:hidden;
+  box-shadow:0 20px 44px rgba(0,0,0,.16),0 3px 10px rgba(0,0,0,.1);
+  transition:background .4s,border-color .4s,box-shadow .4s;
+}
+[data-theme=&quot;light&quot;] .card{box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 6px 28px rgba(0,0,0,.07),0 1px 6px rgba(0,0,0,.04)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent)}
+[data-theme=&quot;light&quot;] .card::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent)}
+
+/* ══════════════════════════════════════════════════
+   TYPE
+══════════════════════════════════════════════════ */
+.page-title{font-size:clamp(26px,6vw,33px);font-weight:800;letter-spacing:-.03em;color:var(--t1);line-height:1.1;margin-bottom:5px}
+.page-sub{font-size:14px;color:var(--t2);margin-bottom:26px;line-height:1.5}
+
+/* ══════════════════════════════════════════════════
+   INPUTS
+══════════════════════════════════════════════════ */
+.field{margin-bottom:12px}
+.field-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:7px;display:block}
+.input-wrap{position:relative;display:flex;align-items:center}
+.input-icon{position:absolute;left:13px;color:var(--t3);pointer-events:none;display:flex;align-items:center}
+input[type=&quot;text&quot;],input[type=&quot;password&quot;],input[type=&quot;number&quot;],select{
+  width:100%;background:var(--input-bg);border:1px solid var(--input-bdr);border-radius:14px;
+  padding:14px 14px 14px 42px;font-size:16px;font-family:inherit;font-weight:500;color:var(--t1);
+  transition:all .3s ease;-webkit-appearance:none;appearance:none;outline:none;
+}
+input[type=&quot;number&quot;]{padding-left:14px;text-align:right;font-variant-numeric:tabular-nums;font-size:17px;font-weight:600;letter-spacing:-.02em}
+select{cursor:pointer}
+select option{background:#1a1a2e;color:#fff}
+[data-theme=&quot;light&quot;] select option{background:#fff;color:#000}
+input::placeholder{color:var(--t3);font-weight:400}
+input:focus,select:focus{background:rgba(10,132,255,.07);border-color:rgba(10,132,255,.45);box-shadow:0 0 0 3px rgba(10,132,255,.12)}
+input.err,select.err{background:rgba(255,69,58,.07);border-color:rgba(255,69,58,.4);box-shadow:0 0 0 3px rgba(255,69,58,.1)}
+
+/* ══════════════════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════════════════ */
+.btn{width:100%;border:none;border-radius:14px;padding:15px 20px;font-size:16px;font-family:inherit;font-weight:600;letter-spacing:-.01em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .22s ease;-webkit-appearance:none;outline:none}
+.btn-primary{background:linear-gradient(180deg,#1a8fff 0%,#0A84FF 50%,#0070d4 100%);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 8px 26px rgba(10,132,255,.28),0 2px 7px rgba(0,0,0,.18)}
+.btn-primary:hover:not(:disabled){transform:translateY(-1px) scale(1.004);box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 14px 34px rgba(10,132,255,.36),0 3px 10px rgba(0,0,0,.22)}
+.btn-primary:active:not(:disabled){transform:scale(.985)}
+.btn-primary:disabled{background:var(--t4);color:var(--t3);cursor:not-allowed;box-shadow:none}
+.btn-ghost{background:var(--ghost-bg);border:1px solid var(--ghost-bdr);color:var(--ghost-c)}
+.btn-ghost:hover{background:var(--surface2);color:var(--t1)}
+.btn-danger{background:rgba(255,69,58,.1);border:1px solid rgba(255,69,58,.2);color:#FF453A}
+.btn-danger:hover{background:rgba(255,69,58,.16)}
+.btn-sm{padding:9px 14px;font-size:13px;font-weight:600;border-radius:10px;width:auto}
+.btn-xs{padding:6px 11px;font-size:12px;font-weight:600;border-radius:8px;width:auto}
+
+/* ══════════════════════════════════════════════════
+   ERR BANNER
+══════════════════════════════════════════════════ */
+.err-banner{display:none;background:rgba(255,69,58,.1);border:1px solid rgba(255,69,58,.2);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:500;color:#FF7B74;line-height:1.45;margin-top:10px;gap:9px;align-items:flex-start}
+.err-banner.show{display:flex}
+
+/* ══════════════════════════════════════════════════
+   SHAKE
+══════════════════════════════════════════════════ */
+@keyframes shake{0%,100%{transform:translateX(0)}18%{transform:translateX(-7px)}36%{transform:translateX(7px)}54%{transform:translateX(-4px)}72%{transform:translateX(4px)}90%{transform:translateX(-2px)}}
+.shake{animation:shake .45s ease}
+
+/* ══════════════════════════════════════════════════
+   RATE CARD
+══════════════════════════════════════════════════ */
+.rate-card{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:16px 18px;margin-bottom:18px;transition:background .4s,border-color .4s}
+.rate-val{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--t1);font-variant-numeric:tabular-nums}
+.rate-lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:2px}
+.rate-tag{display:inline-flex;align-items:center;gap:4px;background:var(--rate-tag-bg);border-radius:999px;padding:3px 9px;font-size:11px;font-weight:700;color:var(--rate-tag-c);letter-spacing:.02em;text-transform:uppercase;margin-top:4px;width:fit-content}
+
+/* ══════════════════════════════════════════════════
+   PAYEE CARDS
+══════════════════════════════════════════════════ */
+.payee-card{background:var(--surface);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:22px;padding:20px 18px 16px;margin-bottom:10px;position:relative;overflow:hidden;box-shadow:0 14px 30px rgba(0,0,0,.13);opacity:0;transform:translateY(14px);animation:ce .5s cubic-bezier(.34,1.56,.64,1) both;transition:background .4s,border-color .4s}
+[data-theme=&quot;light&quot;] .payee-card{box-shadow:0 3px 16px rgba(0,0,0,.06)}
+.payee-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent)}
+[data-theme=&quot;light&quot;] .payee-card::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent)}
+@keyframes ce{to{opacity:1;transform:translateY(0)}}
+.payee-card:nth-child(1){animation-delay:.04s}.payee-card:nth-child(2){animation-delay:.1s}.payee-card:nth-child(3){animation-delay:.16s}.payee-card:nth-child(4){animation-delay:.22s}.payee-card:nth-child(5){animation-delay:.28s}
+.p-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.p-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+.p-name{font-size:15px;font-weight:700;letter-spacing:-.02em;color:var(--t1)}
+.p-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.p-field label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);display:block;margin-bottom:5px}
+
+/* ══════════════════════════════════════════════════
+   LOADING
+══════════════════════════════════════════════════ */
+#load-wrap{text-align:center;padding:80px 20px;display:flex;flex-direction:column;align-items:center}
+.ring-wrap{position:relative;width:120px;height:120px;margin-bottom:28px}
+.ring-bg{position:absolute;inset:0;border-radius:50%;border:3px solid var(--border)}
+#psvg{position:absolute;inset:0;transform:rotate(-90deg)}
+#pcircle{fill:none;stroke:url(#pg);stroke-width:3;stroke-linecap:round;stroke-dasharray:339.29;stroke-dashoffset:339.29;transition:stroke-dashoffset .1s linear;filter:drop-shadow(0 0 6px rgba(10,132,255,.7))}
+.ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,var(--t1),var(--t2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.load-title{font-size:22px;font-weight:700;letter-spacing:-.03em;color:var(--t1);margin-bottom:7px}
+.load-sub{font-size:14px;color:var(--t3)}
+.dots{display:flex;gap:6px;margin-top:20px;justify-content:center}
+.dot{width:5px;height:5px;border-radius:50%;background:#0A84FF;animation:dp 1.4s infinite}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes dp{0%,80%,100%{transform:scale(.6);opacity:.3}40%{transform:scale(1);opacity:1}}
+
+/* ══════════════════════════════════════════════════
+   TABS
+══════════════════════════════════════════════════ */
+.tabs{display:flex;gap:5px;margin-bottom:16px;background:var(--surface2);border-radius:14px;padding:4px;border:1px solid var(--border);transition:background .4s,border-color .4s}
+.tab{flex:1;padding:9px 6px;font-size:13px;font-weight:600;letter-spacing:-.01em;border:none;border-radius:10px;background:transparent;color:var(--t3);cursor:pointer;transition:all .25s ease;font-family:inherit}
+.tab.active{background:var(--tab-active);color:var(--t1);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+[data-theme=&quot;light&quot;] .tab.active{box-shadow:0 1px 6px rgba(0,0,0,.08)}
+.tab-panel{display:none}.tab-panel.active{display:block;animation:si .35s ease both}
+
+/* ══════════════════════════════════════════════════
+   RECEIPT
+══════════════════════════════════════════════════ */
+.r-brand{text-align:center;padding-bottom:20px;border-bottom:1px solid var(--sep);margin-bottom:20px}
+.r-brand-name{font-size:18px;font-weight:800;letter-spacing:-.03em;color:var(--t1);margin-bottom:4px}
+.r-meta{font-size:12px;color:var(--t3);line-height:1.8}
+.bi{background:var(--stats-bg);border:1px solid var(--border);border-radius:17px;padding:17px 16px 13px;margin-bottom:9px;transition:background .4s,border-color .4s}
+.bi-hdr{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.bi-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+.bi-name{font-size:14px;font-weight:700;letter-spacing:-.02em;color:var(--t1)}
+.bi-rows{display:flex;flex-direction:column;gap:2px}
+.bi-row{display:flex;justify-content:space-between;font-size:13px;color:var(--t2);padding:2px 0}
+.bi-row .v{font-weight:600;color:var(--t1);font-variant-numeric:tabular-nums}
+.bi-sep{height:1px;background:var(--sep);margin:9px 0}
+.bi-total{display:flex;justify-content:space-between;align-items:center}
+.bi-tl{font-size:13px;font-weight:600;color:var(--t2)}
+.bi-tv{font-size:19px;font-weight:800;letter-spacing:-.03em;color:var(--blue-display);font-variant-numeric:tabular-nums}
+.grand{border-radius:20px;padding:32px 20px;text-align:center;position:relative;overflow:hidden;margin-top:16px;transition:box-shadow .4s}
+[data-theme=&quot;dark&quot;] .grand{background:linear-gradient(145deg,#0a1628,#071020);border:1px solid rgba(10,132,255,.25);box-shadow:0 0 0 1px rgba(10,132,255,.1),0 0 70px rgba(10,132,255,.12),0 20px 44px rgba(0,0,0,.5)}
+[data-theme=&quot;light&quot;] .grand{background:linear-gradient(145deg,#EBF5FF,#DCEEFF);border:1px solid rgba(10,132,255,.2);box-shadow:0 0 0 1px rgba(10,132,255,.08),0 8px 28px rgba(0,0,0,.07)}
+.grand::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(10,132,255,.2) 0%,transparent 60%);pointer-events:none}
+.grand::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(10,132,255,.5),transparent)}
+.grand-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;position:relative}
+[data-theme=&quot;dark&quot;] .grand-lbl{color:rgba(10,132,255,.7)}[data-theme=&quot;light&quot;] .grand-lbl{color:rgba(0,100,200,.7)}
+.grand-amt{font-size:clamp(36px,9vw,48px);font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums;position:relative;line-height:1;margin-bottom:5px}
+[data-theme=&quot;dark&quot;] .grand-amt{background:linear-gradient(180deg,#fff 0%,rgba(255,255,255,.6) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+[data-theme=&quot;light&quot;] .grand-amt{background:linear-gradient(180deg,#001a33 0%,#0052a3 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.grand-count{font-size:12px;position:relative}
+[data-theme=&quot;dark&quot;] .grand-count{color:rgba(255,255,255,.3)}[data-theme=&quot;light&quot;] .grand-count{color:rgba(0,60,120,.5)}
+.r-footer{text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--sep);font-size:11px;color:var(--t3)}
+
+/* ══════════════════════════════════════════════════
+   STATS
+══════════════════════════════════════════════════ */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.stat-card{background:var(--stats-bg);border:1px solid var(--border);border-radius:17px;padding:16px 14px;transition:background .4s,border-color .4s}
+.stat-icon{font-size:20px;margin-bottom:7px}
+.stat-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:3px}
+.stat-val{font-size:19px;font-weight:800;letter-spacing:-.03em;color:var(--t1);font-variant-numeric:tabular-nums}
+.stat-sub{font-size:11px;color:var(--t3);margin-top:2px}
+.top-card{background:var(--stats-bg);border:1px solid var(--border);border-radius:17px;padding:16px;margin-bottom:10px;transition:background .4s,border-color .4s}
+.bar-track{height:5px;background:var(--t4);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#0A84FF,#32D2FF);transition:width 1.2s cubic-bezier(.34,1.56,.64,1)}
+
+/* ══════════════════════════════════════════════════
+   HISTORY
+══════════════════════════════════════════════════ */
+.hist-item{background:var(--hist-bg);border:1px solid var(--hist-bdr);border-radius:14px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;transition:background .25s,border-color .4s;cursor:default}
+.hist-item:hover{background:var(--surface2)}
+.hist-period{font-size:14px;font-weight:700;color:var(--t1);letter-spacing:-.01em}
+.hist-by{font-size:12px;color:var(--t3);margin-top:1px}
+.hist-amt{font-size:16px;font-weight:800;letter-spacing:-.03em;color:var(--blue-display);font-variant-numeric:tabular-nums}
+.hist-units{font-size:11px;color:var(--t3);text-align:right}
+.h-badge{display:inline-flex;align-items:center;background:rgba(10,132,255,.12);border-radius:999px;padding:2px 9px;font-size:11px;font-weight:700;color:#40A9FF;margin-left:7px;vertical-align:middle}
+[data-theme=&quot;light&quot;] .h-badge{background:rgba(10,132,255,.1);color:#0066CC}
+
+/* ══════════════════════════════════════════════════
+   MODAL SHEET
+══════════════════════════════════════════════════ */
+.modal-ov{position:fixed;inset:0;z-index:900;display:flex;align-items:flex-end;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .35s ease}
+.modal-ov.show{opacity:1;pointer-events:auto}
+.m-bd{position:absolute;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.m-sheet{position:relative;width:100%;max-width:500px;background:var(--modal-bg);backdrop-filter:blur(60px);-webkit-backdrop-filter:blur(60px);border:1px solid var(--border-s);border-radius:24px 24px 28px 28px;padding:26px 22px 32px;box-shadow:0 -1px 0 rgba(255,255,255,.07) inset,0 -30px 60px rgba(0,0,0,.35);transform:translateY(32px);transition:transform .42s cubic-bezier(.34,1.56,.64,1),background .4s,border-color .4s}
+[data-theme=&quot;light&quot;] .m-sheet{box-shadow:0 -1px 0 rgba(255,255,255,.9) inset,0 -16px 48px rgba(0,0,0,.08)}
+.modal-ov.show .m-sheet{transform:translateY(0)}
+.m-pull{width:36px;height:4px;background:var(--pull);border-radius:2px;margin:0 auto 22px}
+.m-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px}
+.m-title{font-size:18px;font-weight:800;letter-spacing:-.03em;text-align:center;color:var(--t1);margin-bottom:8px}
+.m-desc{font-size:13px;color:var(--t2);text-align:center;line-height:1.6;margin-bottom:22px}
+.m-actions{display:flex;flex-direction:column;gap:9px}
+
+/* ══════════════════════════════════════════════════
+   ACTION STACK / MISC
+══════════════════════════════════════════════════ */
+.act-stack{display:flex;flex-direction:column;gap:9px;margin-top:16px}
+.sep{height:1px;background:var(--sep);margin:16px 0;transition:background .4s}
+#staging{position:absolute;left:-9999px;top:0;width:600px;z-index:-1}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:rgba(128,128,128,.2);border-radius:2px}
+
+@media(max-width:400px){.p-fields{grid-template-columns:1fr}#app{padding:28px 13px 60px}.stats-grid{grid-template-columns:1fr}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;aurora&quot;&gt;&lt;div class=&quot;ab&quot;&gt;&lt;/div&gt;&lt;div class=&quot;ab&quot;&gt;&lt;/div&gt;&lt;div class=&quot;ab&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div id=&quot;light-ambient&quot;&gt;&lt;/div&gt;
+
+&lt;!-- TOPBAR --&gt;
+&lt;div id=&quot;topbar&quot;&gt;
+  &lt;button id=&quot;theme-btn&quot; title=&quot;Toggle theme&quot;&gt;
+    &lt;svg class=&quot;ti ti-dark&quot; width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M13 9.5A5.5 5.5 0 0 1 5.5 2a5 5 0 1 0 7.5 7.5z&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;
+    &lt;svg class=&quot;ti ti-light&quot; width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;&gt;&lt;circle cx=&quot;7.5&quot; cy=&quot;7.5&quot; r=&quot;2.5&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot;/&gt;&lt;path d=&quot;M7.5 1v1M7.5 13v1M1 7.5h1M13 7.5h1M3.1 3.1l.7.7M11.2 11.2l.7.7M11.9 3.1l-.7.7M4 11.2l-.7.7&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;app&quot;&gt;
+
+&lt;!-- ══════════════════════════════════
+     S1 — AUTH
+══════════════════════════════════ --&gt;
+&lt;div id=&quot;s-auth&quot; class=&quot;screen active&quot;&gt;
+  &lt;div class=&quot;brand&quot;&gt;
+    &lt;div class=&quot;brand-icon&quot;&gt;
+      &lt;svg width=&quot;30&quot; height=&quot;30&quot; viewBox=&quot;0 0 30 30&quot; fill=&quot;none&quot;&gt;
+        &lt;path d=&quot;M15 3L4 8.5V16C4 21.5 9 26.5 15 28C21 26.5 26 21.5 26 16V8.5L15 3Z&quot; stroke=&quot;url(#sg)&quot; stroke-width=&quot;1.5&quot; fill=&quot;none&quot;/&gt;
+        &lt;path d=&quot;M10 15.5L13.5 19L20 12&quot; stroke=&quot;url(#sg2)&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;
+        &lt;defs&gt;
+          &lt;linearGradient id=&quot;sg&quot; x1=&quot;4&quot; y1=&quot;3&quot; x2=&quot;26&quot; y2=&quot;28&quot; gradientUnits=&quot;userSpaceOnUse&quot;&gt;&lt;stop stop-color=&quot;#40A9FF&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#0A84FF&quot;/&gt;&lt;/linearGradient&gt;
+          &lt;linearGradient id=&quot;sg2&quot; x1=&quot;10&quot; y1=&quot;12&quot; x2=&quot;20&quot; y2=&quot;19&quot; gradientUnits=&quot;userSpaceOnUse&quot;&gt;&lt;stop stop-color=&quot;#32D2FF&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#40A9FF&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;/defs&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;brand-name&quot;&gt;Constantino · Electric&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;card&quot; id=&quot;auth-card&quot;&gt;
+    &lt;div class=&quot;page-title&quot;&gt;Sign in&lt;/div&gt;
+    &lt;div class=&quot;page-sub&quot;&gt;Secure billing portal access&lt;/div&gt;
+    &lt;div class=&quot;field&quot;&gt;
+      &lt;label class=&quot;field-label&quot;&gt;Account&lt;/label&gt;
+      &lt;div class=&quot;input-wrap&quot;&gt;
+        &lt;span class=&quot;input-icon&quot;&gt;&lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;&gt;&lt;circle cx=&quot;7.5&quot; cy=&quot;5&quot; r=&quot;2.8&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.3&quot;/&gt;&lt;path d=&quot;M1.5 13c0-3 2.7-4.8 6-4.8s6 1.8 6 4.8&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.3&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;
+        &lt;select id=&quot;sel-user&quot;&gt;&lt;option value=&quot;&quot; disabled selected&gt;Select your name&lt;/option&gt;&lt;option&gt;Ronnie Constantino&lt;/option&gt;&lt;option&gt;Mary Ann Constantino&lt;/option&gt;&lt;option&gt;Ronald Constantino&lt;/option&gt;&lt;option&gt;Rizza Sotto&lt;/option&gt;&lt;/select&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;field&quot;&gt;
+      &lt;label class=&quot;field-label&quot;&gt;Passcode&lt;/label&gt;
+      &lt;div class=&quot;input-wrap&quot;&gt;
+        &lt;span class=&quot;input-icon&quot;&gt;&lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;&gt;&lt;rect x=&quot;2.5&quot; y=&quot;6.5&quot; width=&quot;10&quot; height=&quot;7&quot; rx=&quot;1.5&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.3&quot;/&gt;&lt;path d=&quot;M5 6.5V4.5a2.5 2.5 0 0 1 5 0v2&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.3&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;circle cx=&quot;7.5&quot; cy=&quot;10&quot; r=&quot;.9&quot; fill=&quot;currentColor&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;
+        &lt;input type=&quot;password&quot; id=&quot;inp-pass&quot; placeholder=&quot;Enter PIN&quot; onpaste=&quot;return false;&quot; autocomplete=&quot;off&quot;/&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&quot;auth-err&quot; class=&quot;err-banner&quot;&gt;
+      &lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 14 14&quot; fill=&quot;none&quot; style=&quot;flex-shrink:0;margin-top:2px&quot;&gt;&lt;circle cx=&quot;7&quot; cy=&quot;7&quot; r=&quot;6&quot; stroke=&quot;#FF453A&quot; stroke-width=&quot;1.3&quot;/&gt;&lt;path d=&quot;M7 4v3.5M7 9v.5&quot; stroke=&quot;#FF453A&quot; stroke-width=&quot;1.4&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;
+      &lt;span id=&quot;auth-err-txt&quot;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;button id=&quot;btn-login&quot; class=&quot;btn btn-primary&quot; style=&quot;margin-top:20px&quot;&gt;
+      &lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M2.5 7.5h10M9 4.5l3.5 3-3.5 3&quot; stroke=&quot;white&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;
+      Continue
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;p style=&quot;font-size:12px;color:var(--t3);text-align:center;margin-top:6px&quot;&gt;Protected · Constantino Billing System v2.1&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- ══════════════════════════════════
+     S2 — INPUT
+══════════════════════════════════ --&gt;
+&lt;div id=&quot;s-input&quot; class=&quot;screen&quot;&gt;
+  &lt;div style=&quot;text-align:center;margin-bottom:28px&quot;&gt;
+    &lt;div style=&quot;display:inline-flex;align-items:center;background:rgba(10,132,255,.12);border:1px solid rgba(10,132,255,.2);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:700;color:#40A9FF;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px&quot;&gt;
+      &lt;span style=&quot;width:6px;height:6px;border-radius:50%;background:#0A84FF;margin-right:6px;display:inline-block&quot;&gt;&lt;/span&gt;
+      New Billing Cycle
+    &lt;/div&gt;
+    &lt;div class=&quot;page-title&quot;&gt;kWh Reading&lt;/div&gt;
+    &lt;div class=&quot;page-sub&quot; id=&quot;input-sub&quot;&gt;Enter meter readings for each unit&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;!-- Rate card --&gt;
+  &lt;div class=&quot;rate-card&quot;&gt;
+    &lt;div&gt;
+      &lt;div class=&quot;rate-lbl&quot;&gt;Rate per kWh&lt;/div&gt;
+      &lt;div class=&quot;rate-val&quot; id=&quot;rate-display&quot;&gt;₱21.00&lt;/div&gt;
+      &lt;div class=&quot;rate-tag&quot;&gt;⚡ Editable&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class=&quot;btn btn-ghost btn-sm&quot; id=&quot;btn-edit-rate&quot; style=&quot;white-space:nowrap&quot;&gt;
+      &lt;svg width=&quot;13&quot; height=&quot;13&quot; viewBox=&quot;0 0 13 13&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M9 2.5l1.5 1.5L4 10.5H2.5V9L9 2.5z&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.3&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;
+      Edit Rate
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;payees-wrap&quot;&gt;&lt;/div&gt;
+  &lt;div style=&quot;padding:0 3px&quot;&gt;
+    &lt;button id=&quot;btn-proceed&quot; class=&quot;btn btn-primary&quot;&gt;
+      &lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M2.5 7.5h10M9 4.5l3.5 3-3.5 3&quot; stroke=&quot;white&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;
+      Generate Bill Breakdown
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- ══════════════════════════════════
+     S3 — LOADING
+══════════════════════════════════ --&gt;
+&lt;div id=&quot;s-loading&quot; class=&quot;screen&quot;&gt;
+  &lt;div id=&quot;load-wrap&quot;&gt;
+    &lt;div class=&quot;ring-wrap&quot;&gt;
+      &lt;div class=&quot;ring-bg&quot;&gt;&lt;/div&gt;
+      &lt;svg id=&quot;psvg&quot; width=&quot;120&quot; height=&quot;120&quot; viewBox=&quot;0 0 120 120&quot;&gt;
+        &lt;defs&gt;&lt;linearGradient id=&quot;pg&quot; x1=&quot;0%&quot; y1=&quot;0%&quot; x2=&quot;100%&quot; y2=&quot;100%&quot;&gt;&lt;stop offset=&quot;0%&quot; stop-color=&quot;#32D2FF&quot;/&gt;&lt;stop offset=&quot;100%&quot; stop-color=&quot;#0A84FF&quot;/&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
+        &lt;circle id=&quot;pcircle&quot; cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;54&quot;/&gt;
+      &lt;/svg&gt;
+      &lt;div class=&quot;ring-pct&quot; id=&quot;ring-pct&quot;&gt;0%&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;load-title&quot;&gt;Processing&lt;/div&gt;
+    &lt;div class=&quot;load-sub&quot;&gt;Generating official digital statement&lt;/div&gt;
+    &lt;div class=&quot;dots&quot;&gt;&lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;&lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;&lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- ══════════════════════════════════
+     S4 — BREAKDOWN
+══════════════════════════════════ --&gt;
+&lt;div id=&quot;s-breakdown&quot; class=&quot;screen&quot;&gt;
+  &lt;div style=&quot;text-align:center;margin-bottom:20px&quot;&gt;
+    &lt;div class=&quot;page-title&quot;&gt;Bill Statement&lt;/div&gt;
+    &lt;div class=&quot;page-sub&quot; id=&quot;bd-sub&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs&quot;&gt;
+    &lt;button class=&quot;tab active&quot; data-tab=&quot;t-receipt&quot;&gt;Receipt&lt;/button&gt;
+    &lt;button class=&quot;tab&quot; data-tab=&quot;t-stats&quot;&gt;Stats&lt;/button&gt;
+    &lt;button class=&quot;tab&quot; data-tab=&quot;t-history&quot;&gt;History&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- RECEIPT --&gt;
+  &lt;div id=&quot;t-receipt&quot; class=&quot;tab-panel active&quot;&gt;
+    &lt;div class=&quot;card&quot; id=&quot;receipt-content&quot; style=&quot;padding:22px 18px&quot;&gt;
+      &lt;div class=&quot;r-brand&quot;&gt;
+        &lt;div class=&quot;r-brand-name&quot;&gt;Electric Bill Statement&lt;/div&gt;
+        &lt;div class=&quot;r-meta&quot;&gt;&lt;div id=&quot;r-month&quot;&gt;&lt;/div&gt;&lt;div id=&quot;r-date&quot;&gt;&lt;/div&gt;&lt;div id=&quot;r-user&quot;&gt;&lt;/div&gt;&lt;div id=&quot;r-rate-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;bi-list&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;grand&quot;&gt;&lt;div class=&quot;grand-lbl&quot;&gt;Total Amount to Collect&lt;/div&gt;&lt;div class=&quot;grand-amt&quot; id=&quot;grand-amt&quot;&gt;₱0&lt;/div&gt;&lt;div class=&quot;grand-count&quot; id=&quot;grand-count&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;r-footer&quot;&gt;Powered by Adriane Andes · Constantino Electric Bill System&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;act-stack&quot;&gt;
+      &lt;button id=&quot;btn-dl-all&quot; class=&quot;btn btn-primary&quot;&gt;
+        &lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M7.5 2v8.5M4.5 8l3 2.5L10.5 8&quot; stroke=&quot;white&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;path d=&quot;M2 13h11&quot; stroke=&quot;white&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;
+        Download Receipt (PNG)
+      &lt;/button&gt;
+      &lt;button class=&quot;btn btn-ghost&quot; onclick=&quot;location.reload()&quot;&gt;Start New Transaction&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- STATS --&gt;
+  &lt;div id=&quot;t-stats&quot; class=&quot;tab-panel&quot;&gt;
+    &lt;div class=&quot;stats-grid&quot; id=&quot;stats-grid&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;top-card&quot; id=&quot;top-card&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;card&quot; id=&quot;bar-card&quot; style=&quot;padding:18px 16px&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- HISTORY --&gt;
+  &lt;div id=&quot;t-history&quot; class=&quot;tab-panel&quot;&gt;
+    &lt;div class=&quot;card&quot; style=&quot;padding:18px 16px&quot;&gt;
+      &lt;div style=&quot;display:flex;align-items:center;justify-content:space-between;margin-bottom:13px&quot;&gt;
+        &lt;div style=&quot;font-size:15px;font-weight:700;color:var(--t1)&quot;&gt;Past Bills &lt;span class=&quot;h-badge&quot; id=&quot;h-count&quot;&gt;0&lt;/span&gt;&lt;/div&gt;
+        &lt;button class=&quot;btn btn-danger btn-xs&quot; id=&quot;btn-clr&quot;&gt;Clear All&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;hist-list&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;&lt;!-- #app --&gt;
+
+&lt;!-- CONFIRM MODAL --&gt;
+&lt;div id=&quot;m-confirm&quot; class=&quot;modal-ov&quot;&gt;
+  &lt;div class=&quot;m-bd&quot; id=&quot;m-confirm-bd&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;m-sheet&quot;&gt;
+    &lt;div class=&quot;m-pull&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;m-icon&quot; style=&quot;background:rgba(255,159,10,.12);border:1px solid rgba(255,159,10,.2)&quot;&gt;⚠️&lt;/div&gt;
+    &lt;div class=&quot;m-title&quot;&gt;Confirm Details&lt;/div&gt;
+    &lt;div class=&quot;m-desc&quot;&gt;Ensure all meter readings are accurate. Calculations are final once generated.&lt;/div&gt;
+    &lt;div class=&quot;m-actions&quot;&gt;
+      &lt;button id=&quot;btn-confirm&quot; class=&quot;btn btn-primary&quot;&gt;Confirm &amp; Generate&lt;/button&gt;
+      &lt;button id=&quot;btn-cancel&quot; class=&quot;btn btn-ghost&quot;&gt;Review Again&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- RATE MODAL --&gt;
+&lt;div id=&quot;m-rate&quot; class=&quot;modal-ov&quot; style=&quot;z-index:950&quot;&gt;
+  &lt;div class=&quot;m-bd&quot; id=&quot;m-rate-bd&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;m-sheet&quot;&gt;
+    &lt;div class=&quot;m-pull&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;m-icon&quot; style=&quot;background:rgba(10,132,255,.12);border:1px solid rgba(10,132,255,.2)&quot;&gt;⚡&lt;/div&gt;
+    &lt;div class=&quot;m-title&quot;&gt;Edit Rate per kWh&lt;/div&gt;
+    &lt;div class=&quot;m-desc&quot;&gt;Set the billing rate applied to all units this cycle.&lt;/div&gt;
+    &lt;div style=&quot;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px&quot;&gt;
+      &lt;span style=&quot;font-size:22px;font-weight:800;color:var(--t2)&quot;&gt;₱&lt;/span&gt;
+      &lt;input type=&quot;number&quot; id=&quot;rate-input&quot; min=&quot;1&quot; max=&quot;9999&quot; step=&quot;0.01&quot; value=&quot;21&quot; style=&quot;width:130px;padding:12px;font-size:26px;font-weight:800;text-align:center;letter-spacing:-.03em;border-radius:14px&quot;/&gt;
+      &lt;span style=&quot;font-size:14px;font-weight:600;color:var(--t3)&quot;&gt;/kWh&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;m-actions&quot; style=&quot;margin-top:12px&quot;&gt;
+      &lt;button id=&quot;btn-save-rate&quot; class=&quot;btn btn-primary&quot;&gt;Save Rate&lt;/button&gt;
+      &lt;button id=&quot;btn-cancel-rate&quot; class=&quot;btn btn-ghost&quot;&gt;Cancel&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- STAGING --&gt;
+&lt;div id=&quot;staging&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+/* ══════════════════════════════════════════════════
+   CONSTANTS &amp; STATE
+══════════════════════════════════════════════════ */
+const PASS    = &quot;74107410&quot;;
+const PAYEES  = [&quot;Jason Manila&quot;,&quot;Joel Colisao&quot;,&quot;Marites Constantino&quot;,&quot;Mela Licuanan&quot;,&quot;Wilma Villamor&quot;];
+const COLORS  = [[&quot;#0A84FF&quot;,&quot;#32D2FF&quot;],[&quot;#30D158&quot;,&quot;#00C896&quot;],[&quot;#FF9F0A&quot;,&quot;#FFD60A&quot;],[&quot;#FF453A&quot;,&quot;#FF6B6B&quot;],[&quot;#BF5AF2&quot;,&quot;#9B59B6&quot;]];
+const MONTHS  = [&quot;January&quot;,&quot;February&quot;,&quot;March&quot;,&quot;April&quot;,&quot;May&quot;,&quot;June&quot;,&quot;July&quot;,&quot;August&quot;,&quot;September&quot;,&quot;October&quot;,&quot;November&quot;,&quot;December&quot;];
+
+let tries=5, activeUser=&quot;&quot;, billingData=[], currentRate=21;
+let histData = JSON.parse(localStorage.getItem(&quot;ceb_hist&quot;)||&quot;[]&quot;);
+
+/* ══════════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════════ */
+const $  = id =&gt; document.getElementById(id);
+const money = n =&gt; new Intl.NumberFormat('en-PH',{style:'currency',currency:'PHP',minimumFractionDigits:2}).format(n).replace('PHP','₱').trim();
+const initials = n =&gt; n.split(' ').map(w=&gt;w[0]).slice(0,2).join('').toUpperCase();
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=&gt;s.classList.remove('active'));
+  requestAnimationFrame(()=&gt;$(id).classList.add('active'));
+}
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+
+/* ══════════════════════════════════════════════════
+   THEME
+══════════════════════════════════════════════════ */
+const html = document.documentElement;
+let isDark = true;
+(()=&gt;{
+  const saved = localStorage.getItem('ceb_theme');
+  if(saved){isDark=saved==='dark';html.setAttribute('data-theme',saved);return}
+  if(window.matchMedia&amp;&amp;window.matchMedia('(prefers-color-scheme:light)').matches){isDark=false;html.setAttribute('data-theme','light')}
+})();
+$('theme-btn').addEventListener('click',()=&gt;{
+  isDark=!isDark;
+  const t=isDark?'dark':'light';
+  html.setAttribute('data-theme',t);
+  localStorage.setItem('ceb_theme',t);
+});
+
+/* ══════════════════════════════════════════════════
+   AUTH
+══════════════════════════════════════════════════ */
+$('btn-login').addEventListener('click',doLogin);
+$('inp-pass').addEventListener('keypress',e=&gt;{if(e.key==='Enter')doLogin()});
+function doLogin(){
+  if(tries&lt;=0)return;
+  const user=$('sel-user').value, pass=$('inp-pass').value;
+  $('sel-user').classList.remove('err');$('inp-pass').classList.remove('err');$('auth-err').classList.remove('show');
+  if(!user){$('sel-user').classList.add('err');$('auth-err-txt').textContent=&quot;Please select an account.&quot;;$('auth-err').classList.add('show');shake($('auth-card'));return}
+  if(pass===PASS){activeUser=user;buildInput();go('s-input')}
+  else{
+    tries--;$('inp-pass').classList.add('err');$('inp-pass').value='';shake($('auth-card'));
+    if(tries&gt;0)$('auth-err-txt').innerHTML=`Incorrect passcode. &lt;strong&gt;${tries} attempt${tries!==1?'s':''}&lt;/strong&gt; remaining.`;
+    else{$('auth-err-txt').textContent=&quot;Access denied. This transaction is monitored and will be reported to Adriane Andes.&quot;;$('sel-user').disabled=$('inp-pass').disabled=$('btn-login').disabled=true}
+    $('auth-err').classList.add('show');
+  }
+}
+
+/* ══════════════════════════════════════════════════
+   RATE EDITOR
+══════════════════════════════════════════════════ */
+$('btn-edit-rate').addEventListener('click',()=&gt;{$('rate-input').value=currentRate;$('m-rate').classList.add('show')});
+$('btn-cancel-rate').addEventListener('click',()=&gt;$('m-rate').classList.remove('show'));
+$('m-rate-bd').addEventListener('click',()=&gt;$('m-rate').classList.remove('show'));
+$('btn-save-rate').addEventListener('click',()=&gt;{
+  const v=parseFloat($('rate-input').value);
+  if(isNaN(v)||v&lt;=0){$('rate-input').classList.add('err');return}
+  currentRate=v;$('rate-display').textContent=`₱${v.toFixed(2)}`;
+  $('m-rate').classList.remove('show');$('rate-input').classList.remove('err');
+});
+
+/* ══════════════════════════════════════════════════
+   INPUT SCREEN
+══════════════════════════════════════════════════ */
+function buildInput(){
+  const wrap=$('payees-wrap');wrap.innerHTML='';
+  $('input-sub').textContent=`Prepared by ${activeUser}`;
+  $('rate-display').textContent=`₱${currentRate.toFixed(2)}`;
+  PAYEES.forEach((name,i)=&gt;{
+    const [c1,c2]=COLORS[i%COLORS.length];
+    const d=document.createElement('div');d.className='payee-card';
+    d.innerHTML=`
+      &lt;div class=&quot;p-hdr&quot;&gt;
+        &lt;div class=&quot;p-av&quot; style=&quot;background:linear-gradient(135deg,${c1},${c2});box-shadow:0 3px 10px ${c1}44&quot;&gt;${initials(name)}&lt;/div&gt;
+        &lt;div class=&quot;p-name&quot;&gt;${name}&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;p-fields&quot;&gt;
+        &lt;div class=&quot;p-field&quot;&gt;&lt;label&gt;Previous kWh&lt;/label&gt;&lt;input type=&quot;number&quot; id=&quot;prev-${i}&quot; min=&quot;0&quot; step=&quot;any&quot; placeholder=&quot;0&quot; inputmode=&quot;decimal&quot;/&gt;&lt;/div&gt;
+        &lt;div class=&quot;p-field&quot;&gt;&lt;label&gt;Present kWh&lt;/label&gt;&lt;input type=&quot;number&quot; id=&quot;pres-${i}&quot; min=&quot;0&quot; step=&quot;any&quot; placeholder=&quot;0&quot; inputmode=&quot;decimal&quot;/&gt;&lt;/div&gt;
+      &lt;/div&gt;`;
+    wrap.appendChild(d);
+  });
+}
+function validate(){
+  billingData=[];let ok=true;
+  PAYEES.forEach((name,i)=&gt;{
+    const pv=$(`prev-${i}`),ps=$(`pres-${i}`);
+    pv.classList.remove('err');ps.classList.remove('err');
+    const prev=parseFloat(pv.value),pres=parseFloat(ps.value);
+    if(isNaN(prev)||prev&lt;0){ok=false;pv.classList.add('err')}
+    if(isNaN(pres)||pres&lt;0){ok=false;ps.classList.add('err')}
+    if(ok&amp;&amp;pres&lt;prev){ok=false;ps.classList.add('err');pv.classList.add('err')}
+    if(ok)billingData.push({name,prev,pres,diff:pres-prev,total:(pres-prev)*currentRate});
+  });
+  return ok;
+}
+$('btn-proceed').addEventListener('click',()=&gt;{if(validate())showModal('m-confirm');else shake($('s-input'))});
+
+/* ══════════════════════════════════════════════════
+   MODALS
+══════════════════════════════════════════════════ */
+function showModal(id){$(id).classList.add('show');document.body.style.overflow='hidden'}
+function hideModal(id){$(id).classList.remove('show');document.body.style.overflow=''}
+$('btn-cancel').addEventListener('click',()=&gt;hideModal('m-confirm'));
+$('m-confirm-bd').addEventListener('click',()=&gt;hideModal('m-confirm'));
+$('btn-confirm').addEventListener('click',()=&gt;{hideModal('m-confirm');startLoad()});
+
+/* ══════════════════════════════════════════════════
+   LOADING
+══════════════════════════════════════════════════ */
+function startLoad(){
+  go('s-loading');
+  const circle=$('pcircle'),pct=$('ring-pct'),circ=339.29;let p=0;
+  const tick=()=&gt;{
+    p+=Math.random()*4+1.5;if(p&gt;100)p=100;
+    circle.style.strokeDashoffset=circ-(p/100)*circ;
+    pct.textContent=Math.round(p)+'%';
+    if(p&lt;100)setTimeout(()=&gt;requestAnimationFrame(tick),55);
+    else setTimeout(()=&gt;{buildReceipt();go('s-breakdown');setTimeout(animateGrand,400)},500);
+  };
+  requestAnimationFrame(tick);
+}
+
+/* ══════════════════════════════════════════════════
+   RECEIPT
+══════════════════════════════════════════════════ */
+function buildReceipt(){
+  const now=new Date();
+  const period=`${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+  $('bd-sub').textContent=`${period} · ${activeUser}`;
+  $('r-month').textContent=`Billing Period: ${period}`;
+  $('r-date').textContent=`Generated: ${now.toLocaleString('en-US')}`;
+  $('r-user').textContent=`Prepared by: ${activeUser}`;
+  $('r-rate-line').textContent=`Rate: ₱${currentRate.toFixed(2)}/kWh`;
+  const list=$('bi-list');list.innerHTML='';
+  let grand=0;
+  billingData.forEach((d,i)=&gt;{
+    grand+=d.total;
+    const [c1,c2]=COLORS[i%COLORS.length];
+    const el=document.createElement('div');el.className='bi';
+    el.innerHTML=`
+      &lt;div class=&quot;bi-hdr&quot;&gt;
+        &lt;div class=&quot;bi-av&quot; style=&quot;background:linear-gradient(135deg,${c1}90,${c2}90)&quot;&gt;${initials(d.name)}&lt;/div&gt;
+        &lt;div class=&quot;bi-name&quot;&gt;${d.name}&lt;/div&gt;
+        &lt;div style=&quot;margin-left:auto&quot;&gt;
+          &lt;button class=&quot;btn btn-ghost btn-xs dl-ind&quot; data-i=&quot;${i}&quot; title=&quot;Download&quot;&gt;
+            &lt;svg width=&quot;11&quot; height=&quot;11&quot; viewBox=&quot;0 0 11 11&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M5.5 1.5v6M3 6l2.5 2 2.5-2&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;path d=&quot;M1 10h9&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.2&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;bi-rows&quot;&gt;
+        &lt;div class=&quot;bi-row&quot;&gt;&lt;span&gt;Previous Reading&lt;/span&gt;&lt;span class=&quot;v&quot;&gt;${d.prev} kWh&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;bi-row&quot;&gt;&lt;span&gt;Present Reading&lt;/span&gt;&lt;span class=&quot;v&quot;&gt;${d.pres} kWh&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;bi-row&quot;&gt;&lt;span&gt;Consumption&lt;/span&gt;&lt;span class=&quot;v&quot;&gt;${d.diff} kWh&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;bi-row&quot;&gt;&lt;span&gt;Rate&lt;/span&gt;&lt;span class=&quot;v&quot;&gt;₱${currentRate}/kWh&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;bi-sep&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;bi-total&quot;&gt;&lt;span class=&quot;bi-tl&quot;&gt;Amount Due&lt;/span&gt;&lt;span class=&quot;bi-tv&quot;&gt;${money(d.total)}&lt;/span&gt;&lt;/div&gt;`;
+    list.appendChild(el);
+  });
+  document.querySelectorAll('.dl-ind').forEach(b=&gt;b.addEventListener('click',e=&gt;{e.stopPropagation();dlIndividual(b.dataset.i)}));
+  $('grand-amt').dataset.target=grand;
+  $('grand-count').textContent=`${billingData.length} unit${billingData.length!==1?'s':''} · ₱${currentRate}/kWh`;
+  buildStats();
+  saveHistory(now,grand);
+  renderHistory();
+}
+
+function animateGrand(){
+  const el=$('grand-amt');const target=parseFloat(el.dataset.target);
+  const dur=1600,s=performance.now();
+  const run=n=&gt;{const p=Math.min((n-s)/dur,1);el.textContent=money(target*(1-Math.pow(1-p,3)));if(p&lt;1)requestAnimationFrame(run);else el.textContent=money(target)};
+  requestAnimationFrame(run);
+}
+
+/* ══════════════════════════════════════════════════
+   STATS
+══════════════════════════════════════════════════ */
+function buildStats(){
+  const totalKwh=billingData.reduce((a,d)=&gt;a+d.diff,0);
+  const totalAmt=billingData.reduce((a,d)=&gt;a+d.total,0);
+  const avgAmt=totalAmt/billingData.length;
+  const top=billingData.reduce((a,b)=&gt;b.total&gt;a.total?b:a);
+  const topPct=Math.round((top.total/totalAmt)*100);
+  const topKwh=billingData.reduce((a,b)=&gt;b.diff&gt;a.diff?b:a);
+
+  $('stats-grid').innerHTML=`
+    &lt;div class=&quot;stat-card&quot;&gt;&lt;div class=&quot;stat-icon&quot;&gt;⚡&lt;/div&gt;&lt;div class=&quot;stat-lbl&quot;&gt;Total kWh&lt;/div&gt;&lt;div class=&quot;stat-val&quot;&gt;${totalKwh.toFixed(1)}&lt;/div&gt;&lt;div class=&quot;stat-sub&quot;&gt;This cycle&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;stat-card&quot;&gt;&lt;div class=&quot;stat-icon&quot;&gt;₱&lt;/div&gt;&lt;div class=&quot;stat-lbl&quot;&gt;Total Collected&lt;/div&gt;&lt;div class=&quot;stat-val&quot;&gt;${money(totalAmt)}&lt;/div&gt;&lt;div class=&quot;stat-sub&quot;&gt;${billingData.length} units&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;stat-card&quot;&gt;&lt;div class=&quot;stat-icon&quot;&gt;📊&lt;/div&gt;&lt;div class=&quot;stat-lbl&quot;&gt;Avg per Unit&lt;/div&gt;&lt;div class=&quot;stat-val&quot;&gt;${money(avgAmt)}&lt;/div&gt;&lt;div class=&quot;stat-sub&quot;&gt;Per household&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;stat-card&quot;&gt;&lt;div class=&quot;stat-icon&quot;&gt;🔥&lt;/div&gt;&lt;div class=&quot;stat-lbl&quot;&gt;Highest kWh&lt;/div&gt;&lt;div class=&quot;stat-val&quot;&gt;${topKwh.diff}&lt;/div&gt;&lt;div class=&quot;stat-sub&quot;&gt;${topKwh.name.split(' ')[0]}&lt;/div&gt;&lt;/div&gt;`;
+
+  $('top-card').innerHTML=`
+    &lt;div style=&quot;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px&quot;&gt;
+      &lt;div&gt;&lt;div style=&quot;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:2px&quot;&gt;Highest Bill&lt;/div&gt;&lt;div style=&quot;font-size:15px;font-weight:800;color:var(--t1);letter-spacing:-.02em&quot;&gt;${top.name}&lt;/div&gt;&lt;/div&gt;
+      &lt;div style=&quot;text-align:right&quot;&gt;&lt;div style=&quot;font-size:18px;font-weight:800;color:var(--blue-display);letter-spacing:-.02em&quot;&gt;${money(top.total)}&lt;/div&gt;&lt;div style=&quot;font-size:11px;color:var(--t3)&quot;&gt;${topPct}% of total&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;bar-track&quot;&gt;&lt;div class=&quot;bar-fill&quot; style=&quot;width:0%&quot; data-w=&quot;${topPct}%&quot;&gt;&lt;/div&gt;&lt;/div&gt;`;
+
+  $('bar-card').innerHTML=`
+    &lt;div style=&quot;font-size:13px;font-weight:700;color:var(--t2);margin-bottom:13px&quot;&gt;All Units&lt;/div&gt;
+    ${billingData.map((d,i)=&gt;{
+      const [c1,c2]=COLORS[i%COLORS.length];
+      const w=Math.round((d.total/billingData.reduce((a,b)=&gt;a+b.total,0))*100);
+      return `&lt;div style=&quot;margin-bottom:11px&quot;&gt;
+        &lt;div style=&quot;display:flex;justify-content:space-between;align-items:center;margin-bottom:5px&quot;&gt;
+          &lt;div style=&quot;display:flex;align-items:center;gap:7px&quot;&gt;
+            &lt;div style=&quot;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,${c1},${c2});display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff&quot;&gt;${initials(d.name)}&lt;/div&gt;
+            &lt;span style=&quot;font-size:13px;font-weight:600;color:var(--t1)&quot;&gt;${d.name}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;span style=&quot;font-size:13px;font-weight:700;color:var(--t1);font-variant-numeric:tabular-nums&quot;&gt;${money(d.total)}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;bar-track&quot;&gt;&lt;div class=&quot;bar-fill&quot; style=&quot;width:0%;background:linear-gradient(90deg,${c1},${c2})&quot; data-w=&quot;${w}%&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;`;
+    }).join('')}`;
+
+  setTimeout(()=&gt;document.querySelectorAll('.bar-fill').forEach(b=&gt;b.style.width=b.dataset.w),280);
+}
+
+/* ══════════════════════════════════════════════════
+   HISTORY
+══════════════════════════════════════════════════ */
+function saveHistory(now,grand){
+  histData.unshift({period:`${MONTHS[now.getMonth()]} ${now.getFullYear()}`,date:now.toLocaleString('en-US'),user:activeUser,total:grand,units:billingData.length,rate:currentRate});
+  if(histData.length&gt;12)histData=histData.slice(0,12);
+  localStorage.setItem('ceb_hist',JSON.stringify(histData));
+}
+function renderHistory(){
+  $('h-count').textContent=histData.length;
+  const list=$('hist-list');
+  if(!histData.length){list.innerHTML=`&lt;div style=&quot;text-align:center;padding:24px;color:var(--t3);font-size:14px&quot;&gt;No billing history yet&lt;/div&gt;`;return}
+  list.innerHTML=histData.map(h=&gt;`
+    &lt;div class=&quot;hist-item&quot;&gt;
+      &lt;div&gt;&lt;div class=&quot;hist-period&quot;&gt;${h.period}&lt;/div&gt;&lt;div class=&quot;hist-by&quot;&gt;by ${h.user} · ₱${h.rate}/kWh&lt;/div&gt;&lt;/div&gt;
+      &lt;div style=&quot;text-align:right&quot;&gt;&lt;div class=&quot;hist-amt&quot;&gt;${money(h.total)}&lt;/div&gt;&lt;div class=&quot;hist-units&quot;&gt;${h.units} units&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;`).join('');
+}
+$('btn-clr').addEventListener('click',()=&gt;{if(!confirm('Clear all billing history?'))return;histData=[];localStorage.removeItem('ceb_hist');renderHistory()});
+
+/* ══════════════════════════════════════════════════
+   TABS
+══════════════════════════════════════════════════ */
+document.querySelectorAll('.tab').forEach(tab=&gt;{
+  tab.addEventListener('click',()=&gt;{
+    document.querySelectorAll('.tab').forEach(t=&gt;t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=&gt;p.classList.remove('active'));
+    tab.classList.add('active');$(tab.dataset.tab).classList.add('active');
+  });
+});
+
+/* ══════════════════════════════════════════════════
+   EXPORT — FIXED PNG ENGINE
+   Builds a fully inline-styled clone, bypassing
+   backdrop-filter / CSS variable resolution bugs
+   in html2canvas completely.
+══════════════════════════════════════════════════ */
+function getColors(){
+  const dark=html.getAttribute('data-theme')!=='light';
+  return{
+    dark,
+    bg:      dark?'#0d0d18':'#F2F2F7',
+    card:    dark?'#13131f':'#FFFFFF',
+    iBg:     dark?'rgba(255,255,255,0.03)':'rgba(0,0,0,0.03)',
+    iBdr:    dark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.07)',
+    t1:      dark?'rgba(255,255,255,0.95)':'rgba(0,0,0,0.90)',
+    t2:      dark?'rgba(255,255,255,0.55)':'rgba(0,0,0,0.50)',
+    t3:      dark?'rgba(255,255,255,0.28)':'rgba(0,0,0,0.30)',
+    sep:     dark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.07)',
+    blue:    dark?'#40A9FF':'#0066CC',
+    grandBg: dark?'linear-gradient(145deg,#0a1628,#071020)':'linear-gradient(145deg,#EBF5FF,#DCEEFF)',
+    grandB:  dark?'rgba(10,132,255,0.25)':'rgba(10,132,255,0.2)',
+    grandAmt:dark?'#FFFFFF':'#001a33',
+    grandLbl:dark?'rgba(10,132,255,0.7)':'rgba(0,100,200,0.7)',
+    grandCnt:dark?'rgba(255,255,255,0.3)':'rgba(0,60,120,0.5)',
+    footer:  dark?'rgba(255,255,255,0.25)':'rgba(0,0,0,0.28)',
+    sf:      '-apple-system,BlinkMacSystemFont,&quot;SF Pro Display&quot;,&quot;Inter&quot;,sans-serif',
+  };
+}
+
+function buildExportEl(items, isAll){
+  const c=getColors();
+  const now=new Date();
+  const period=`${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+  const total=items.reduce((a,b)=&gt;a+b.total,0);
+  const countLbl=isAll?`${items.length} unit${items.length!==1?'s':''} · ₱${currentRate}/kWh`:`₱${currentRate}/kWh · Individual Receipt`;
+
+  const rowS=`display:flex;justify-content:space-between;font-size:13px;color:${c.t2};padding:2px 0;`;
+  const valS=`font-weight:600;color:${c.t1};font-variant-numeric:tabular-nums;`;
+
+  const itemsHTML=items.map((d,i)=&gt;{
+    const[c1,c2]=COLORS[i%COLORS.length];
+    return `&lt;div style=&quot;background:${c.iBg};border:1px solid ${c.iBdr};border-radius:16px;padding:17px 15px;margin-bottom:9px;&quot;&gt;
+      &lt;div style=&quot;display:flex;align-items:center;gap:9px;margin-bottom:11px;&quot;&gt;
+        &lt;div style=&quot;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,${c1}88,${c2}88);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0;&quot;&gt;${initials(d.name)}&lt;/div&gt;
+        &lt;div style=&quot;font-size:15px;font-weight:700;color:${c.t1};letter-spacing:-0.02em;&quot;&gt;${d.name}&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div style=&quot;${rowS}&quot;&gt;&lt;span&gt;Previous Reading&lt;/span&gt;&lt;span style=&quot;${valS}&quot;&gt;${d.prev} kWh&lt;/span&gt;&lt;/div&gt;
+      &lt;div style=&quot;${rowS}&quot;&gt;&lt;span&gt;Present Reading&lt;/span&gt;&lt;span style=&quot;${valS}&quot;&gt;${d.pres} kWh&lt;/span&gt;&lt;/div&gt;
+      &lt;div style=&quot;${rowS}&quot;&gt;&lt;span&gt;Consumption&lt;/span&gt;&lt;span style=&quot;${valS}&quot;&gt;${d.diff} kWh&lt;/span&gt;&lt;/div&gt;
+      &lt;div style=&quot;${rowS}&quot;&gt;&lt;span&gt;Rate&lt;/span&gt;&lt;span style=&quot;${valS}&quot;&gt;₱${currentRate}/kWh&lt;/span&gt;&lt;/div&gt;
+      &lt;div style=&quot;height:1px;background:${c.sep};margin:9px 0;&quot;&gt;&lt;/div&gt;
+      &lt;div style=&quot;display:flex;justify-content:space-between;align-items:center;&quot;&gt;
+        &lt;span style=&quot;font-size:13px;font-weight:600;color:${c.t2};&quot;&gt;Amount Due&lt;/span&gt;
+        &lt;span style=&quot;font-size:21px;font-weight:800;letter-spacing:-0.03em;color:${c.blue};font-variant-numeric:tabular-nums;&quot;&gt;${money(d.total)}&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;`;
+  }).join('');
+
+  const wrapper=document.createElement('div');
+  wrapper.style.cssText=`font-family:${c.sf};background:${c.card};padding:30px 26px;border-radius:20px;max-width:520px;-webkit-font-smoothing:antialiased;`;
+  wrapper.innerHTML=`
+    &lt;div style=&quot;text-align:center;padding-bottom:19px;border-bottom:1px solid ${c.sep};margin-bottom:19px;&quot;&gt;
+      &lt;div style=&quot;font-size:19px;font-weight:800;letter-spacing:-0.03em;color:${c.t1};margin-bottom:5px;&quot;&gt;Electric Bill Statement&lt;/div&gt;
+      &lt;div style=&quot;font-size:12px;color:${c.t3};line-height:1.9;&quot;&gt;
+        &lt;div&gt;Billing Period: ${period}&lt;/div&gt;
+        &lt;div&gt;Generated: ${now.toLocaleString('en-US')}&lt;/div&gt;
+        &lt;div&gt;Prepared by: ${activeUser}&lt;/div&gt;
+        &lt;div&gt;Rate: ₱${currentRate.toFixed(2)}/kWh&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    ${itemsHTML}
+    &lt;div style=&quot;border-radius:18px;padding:28px 18px;text-align:center;margin-top:14px;background:${c.grandBg};border:1px solid ${c.grandB};&quot;&gt;
+      &lt;div style=&quot;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:${c.grandLbl};margin-bottom:7px;&quot;&gt;Total Amount to Collect&lt;/div&gt;
+      &lt;div style=&quot;font-size:44px;font-weight:900;letter-spacing:-0.04em;color:${c.grandAmt};font-variant-numeric:tabular-nums;line-height:1;&quot;&gt;${money(total)}&lt;/div&gt;
+      &lt;div style=&quot;font-size:12px;color:${c.grandCnt};margin-top:5px;&quot;&gt;${countLbl}&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div style=&quot;text-align:center;margin-top:22px;padding-top:14px;border-top:1px solid ${c.sep};font-size:11px;color:${c.footer};&quot;&gt;
+      Powered by Adriane Andes · Constantino Electric Bill System
+    &lt;/div&gt;`;
+  return wrapper;
+}
+
+async function runExport(items, filename, isAll){
+  const stg=$('staging');
+  const el=buildExportEl(items, isAll);
+  stg.innerHTML='';
+  stg.appendChild(el);
+  await new Promise(r=&gt;setTimeout(r,150));
+  const c=getColors();
+  try{
+    const canvas=await html2canvas(el,{scale:2.5,backgroundColor:c.bg,useCORS:true,logging:false,allowTaint:false});
+    const a=document.createElement('a');
+    a.download=filename+'.png';
+    a.href=canvas.toDataURL('image/png');
+    a.click();
+  }catch(err){console.error(err);alert('Export failed. Please try again.')}
+  finally{stg.innerHTML=''}
+}
+
+$('btn-dl-all').addEventListener('click',async()=&gt;{
+  const btn=$('btn-dl-all');
+  const orig=btn.innerHTML;
+  btn.disabled=true;btn.textContent='Generating…';
+  await runExport(billingData,`Constantino_Electric_${Date.now()}`,true);
+  btn.disabled=false;btn.innerHTML=orig;
+});
+
+async function dlIndividual(idx){
+  await runExport([billingData[idx]],`Receipt_${billingData[idx].name.replace(/\s+/g,'_')}`,false);
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</body>
+</html>
